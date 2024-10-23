@@ -131,7 +131,7 @@ int main()
     for (const auto &city : path)
     {
         cout << city;
-        if (&city != &path.back()) // Avoid adding " -> " after the last city
+        if (&city != &path.back())
             cout << " -> ";
     }
     cout << endl;

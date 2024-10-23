@@ -1,11 +1,3 @@
-:- initialization(main).
-main :- 
-        (father(ajay, bobby) -> write('yes father'), nl;
-        write('no father'), nl),
-        (mother(mary, lisa) -> write('yes mother'), nl;
-        write('no mother'), nl),
-        halt.
-
 %Facts
 male(ajay).
 male(bobby).

@@ -20,6 +20,7 @@ public:
             } else {
                 humanMove();
             }
+            cout << endl;
             printBoard();
             if (checkWin()) {
                 cout << "Game Over. Winner: " << (i % 2 == 0 ? "Computer" : "Human") << endl;
