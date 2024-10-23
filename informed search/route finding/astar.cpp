@@ -77,55 +77,27 @@ vector<string> aStar(Node *start, Node *goal, map<Node *, int> &distances)
 
 int main()
 {
-    // Creating nodes
-    Node *n1 = new Node("Arad", 366);
-    Node *n2 = new Node("Zerind", 374);
-    Node *n3 = new Node("Oradea", 380);
-    Node *n4 = new Node("Sibiu", 253);
-    Node *n5 = new Node("Timisoara", 329);
-    Node *n6 = new Node("Lugoj", 244);
-    Node *n7 = new Node("Mehadia", 241);
-    Node *n8 = new Node("Craiova", 160);
-    Node *n9 = new Node("Drobeta", 242);
-    Node *n10 = new Node("Eforie", 161);
-    Node *n11 = new Node("Fagaras", 176);
-    Node *n12 = new Node("Giurgiu", 77);
-    Node *n13 = new Node("Bucharest", 0);
-    Node *n14 = new Node("Hirsova", 151);
-    Node *n15 = new Node("Iasi", 226);
-    Node *n16 = new Node("Neamt", 234);
-    Node *n17 = new Node("Pitesti", 98);
-    Node *n18 = new Node("Rimnicu Vilcea", 193);
-    Node *n19 = new Node("Vaslui", 199);
-    Node *n20 = new Node("Urziceni", 80);
+    // Create simple nodes
+    Node *n1 = new Node("A", 4);
+    Node *n2 = new Node("B", 2);
+    Node *n3 = new Node("C", 0); // Goal node
+    Node *n4 = new Node("D", 3);
 
-    // Adding edges
-    n1->adj = {{n2, 75}, {n4, 140}, {n5, 118}};
-    n2->adj = {{n1, 75}, {n3, 71}};
-    n3->adj = {{n2, 71}, {n4, 151}};
-    n4->adj = {{n1, 140}, {n11, 99}, {n3, 151}, {n18, 80}};
-    n5->adj = {{n1, 118}, {n6, 111}};
-    n6->adj = {{n5, 111}, {n7, 70}};
-    n7->adj = {{n6, 70}, {n9, 75}};
-    n8->adj = {{n9, 120}, {n18, 146}, {n17, 138}};
-    n9->adj = {{n7, 75}, {n8, 120}};
-    n10->adj = {{n14, 86}};
-    n11->adj = {{n4, 99}, {n13, 211}};
-    n12->adj = {{n13, 90}};
-    n13->adj = {{n12, 90}, {n17, 101}, {n20, 85}};
-    n14->adj = {{n10, 86}, {n20, 98}};
-    n15->adj = {{n16, 87}, {n19, 92}};
-    n16->adj = {{n15, 87}};
-    n17->adj = {{n18, 97}, {n13, 101}, {n8, 138}};
-    n18->adj = {{n4, 80}, {n17, 97}, {n8, 146}};
-    n19->adj = {{n15, 92}, {n20, 152}};
-    n20->adj = {{n19, 142}, {n14, 98}, {n13, 85}};
+    // Set up simple adjacency lists (edges)
+    n1->adj = {{n2, 1}, {n4, 5}}; // A -> B (1), A -> D (5)
+    n2->adj = {{n3, 2}, {n1, 1}}; // B -> C (2), B -> A (1)
+    n3->adj = {};                 // Goal node has no outgoing edges
+    n4->adj = {{n3, 2}};          // D -> C (2)
+
+    // Hardcode the start and goal
+    Node *start = n1; // Start at A
+    Node *goal = n3;  // Goal is C
 
     map<Node *, int> distances;
     cout << "Using A* Search algorithm - " << endl;
 
     // Perform A* Search
-    vector<string> path = aStar(n1, n13, distances);
+    vector<string> path = aStar(start, goal, distances);
 
     // Print the path
     cout << "Path: ";
