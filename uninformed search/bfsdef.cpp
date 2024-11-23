@@ -10,8 +10,6 @@ using namespace std;
 class Graph {
     int V; // Number of vertices
     vector<vector<int>> adjList; // Adjacency list
-    vector<pair<int, int>> bfsEdges; // Edges traversed during BFS
-    vector<pair<int, int>> dfsEdges; // Edges traversed during DFS
 
 public:
     Graph(int V) {
@@ -44,7 +42,6 @@ public:
                 if (!visited[neighbor]) {
                     visited[neighbor] = true;
                     q.push(neighbor);
-                    bfsEdges.push_back({node, neighbor}); // Track traversed edges
                 }
             }
         }
@@ -58,7 +55,6 @@ public:
 
         for (int neighbor : adjList[node]) {
             if (!visited[neighbor]) {
-                dfsEdges.push_back({node, neighbor}); // Track traversed edges
                 dfsUtil(neighbor, visited);
             }
         }
@@ -69,39 +65,6 @@ public:
         cout << "DFS traversal starting from vertex " << start << ": ";
         dfsUtil(start, visited);
         cout << endl;
-    }
-
-    // Function to output graph in Graphviz (DOT) format and save to a file, highlighting traversal
-    void saveGraphvizWithTraversalToFile(const string& filename, const string& traversalType) {
-        ofstream file(filename);
-
-        if (!file.is_open()) {
-            cerr << "Error: Could not open file " << filename << endl;
-            return;
-        }
-
-        file << "graph G {" << endl;
-        file << "  node [shape=circle];" << endl;
-
-        // Default edges (non-traversed)
-        for (int u = 0; u < V; ++u) {
-            for (int v : adjList[u]) {
-                if (u < v) // Print each edge once for undirected graph
-                    file << "  " << u << " -- " << v << " [color=gray];" << endl;
-            }
-        }
-
-        // Highlight traversed edges
-        vector<pair<int, int>> traversedEdges = (traversalType == "BFS") ? bfsEdges : dfsEdges;
-        int edgeCount = 0;
-        for (const auto& edge : traversedEdges) {
-            file << "  " << edge.first << " -- " << edge.second
-                 << " [color=red, penwidth=2, label=\"" << ++edgeCount << "\"];" << endl;
-        }
-
-        file << "}" << endl;
-        file.close();
-        cout << "Graph with " << traversalType << " traversal saved to " << filename << endl;
     }
 };
 
@@ -118,11 +81,9 @@ int main() {
 
     // Perform BFS and save traversal
     g.bfs(0);
-    g.saveGraphvizWithTraversalToFile("bfs_traversal.dot", "BFS");
 
     // Perform DFS and save traversal
     g.dfs(0);
-    g.saveGraphvizWithTraversalToFile("dfs_traversal.dot", "DFS");
 
     return 0;
 }

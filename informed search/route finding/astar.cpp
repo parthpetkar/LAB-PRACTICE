@@ -78,20 +78,24 @@ vector<string> aStar(Node *start, Node *goal, map<Node *, int> &distances)
 int main()
 {
     // Create simple nodes
-    Node *n1 = new Node("A", 4);
-    Node *n2 = new Node("B", 2);
-    Node *n3 = new Node("C", 0); // Goal node
-    Node *n4 = new Node("D", 3);
+    Node *s = new Node("S", 5);
+    Node *a = new Node("A", 3);
+    Node *b = new Node("B", 4);
+    Node *c = new Node("C", 2); // Goal node
+    Node *d = new Node("D", 6);
+    Node *g = new Node("G", 0);
 
     // Set up simple adjacency lists (edges)
-    n1->adj = {{n2, 1}, {n4, 5}}; // A -> B (1), A -> D (5)
-    n2->adj = {{n3, 2}, {n1, 1}}; // B -> C (2), B -> A (1)
-    n3->adj = {};                 // Goal node has no outgoing edges
-    n4->adj = {{n3, 2}};          // D -> C (2)
+    s->adj = {{a, 1}, {g, 10}}; // A -> B (1), A -> D (5)
+    a->adj = {{c, 2}, {b, 2}}; // B -> C (2), B -> A (1)
+    b->adj = {{d, 5}};                 // Goal node has no outgoing edges
+    c->adj = {{d, 3}, {g, 4}};          // D -> C (2)
+    d->adj = {{g, 2}};          // D -> C (2)
+    g->adj = {};          // D -> C (2)
 
     // Hardcode the start and goal
-    Node *start = n1; // Start at A
-    Node *goal = n3;  // Goal is C
+    Node *start = s; // Start at A
+    Node *goal = g;  // Goal is C
 
     map<Node *, int> distances;
     cout << "Using A* Search algorithm - " << endl;
