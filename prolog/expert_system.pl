@@ -22,6 +22,11 @@ bowler(shami).
 bowler(ishant).
 bowler(ashwin).
 
+% Defining wicket-keepers
+wicket_keeper(dhoni).
+wicket_keeper(pant).
+
+
 batting_average(kohli, 50).
 batting_average(dhoni, 45).
 batting_average(rohit, 40).
@@ -67,10 +72,6 @@ is_all_rounder(Player) :-
 is_wicket_keeper(Player) :-
     batsman(Player),
     wicket_keeper(Player).
-
-% Defining wicket-keepers
-wicket_keeper(dhoni).
-wicket_keeper(pant).
 
 % A top-order batsman has a batting average >= 45.
 is_top_order_batsman(Player) :-

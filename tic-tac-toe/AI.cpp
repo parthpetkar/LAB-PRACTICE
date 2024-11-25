@@ -48,7 +48,6 @@ void makeHumanMove() {
     cout << "Enter your move (1-9): ";
     while (!(cin >> position) || !isValidMove(position)) {
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Invalid move. Enter a valid move (1-9): ";
     }
     int row = (position - 1) / board_size;

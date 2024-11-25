@@ -3,19 +3,18 @@
 #include <cstring>
 using namespace std;
 
+// Number of vertices in the graph
 #define V 4
 
 // A utility function to print the solution
-void printSolution(int color[])
-{
+void printSolution(int color[]) {
     cout << "Solution Exists: Following are the assigned colors" << "\n";
     for (int i = 0; i < V; i++)
         cout << "Vertex " << i << " --->  Color " << color[i] << "\n";
 }
 
 // A greedy function to assign colors to vertices
-void greedyGraphColoring(bool graph[V][V])
-{
+void greedyGraphColoring(const vector<vector<int>>& adjList) {
     int color[V];
 
     // Assign the first color to the first vertex
@@ -33,9 +32,9 @@ void greedyGraphColoring(bool graph[V][V])
     for (int u = 1; u < V; u++) {
 
         // Mark colors used by adjacent vertices as unavailable
-        for (int i = 0; i < V; i++) {
-            if (graph[u][i] && color[i] != -1)
-                available[color[i]] = false;
+        for (int neighbor : adjList[u]) {
+            if (color[neighbor] != -1)
+                available[color[neighbor]] = false;
         }
 
         // Find the first available color
@@ -58,23 +57,23 @@ void greedyGraphColoring(bool graph[V][V])
 }
 
 // Driver code
-int main()
-{
-    /* Create following graph and test whether it is 3 colorable
+int main() {
+    /* Create the following graph and test whether it is colorable
       (3)---(2)
        |   / |
        |  /  |
        | /   |
       (0)---(1)
     */
-    bool graph[V][V] = {
-        { 0, 1, 1, 1 },
-        { 1, 0, 1, 0 },
-        { 1, 1, 0, 1 },
-        { 1, 0, 1, 0 },
-    };
+    vector<vector<int>> adjList(V);
+
+    // Creating adjacency list
+    adjList[0] = {1, 2, 3};
+    adjList[1] = {0, 2};
+    adjList[2] = {0, 1, 3};
+    adjList[3] = {0, 2};
 
     // Function call for greedy graph coloring
-    greedyGraphColoring(graph);
+    greedyGraphColoring(adjList);
     return 0;
 }
