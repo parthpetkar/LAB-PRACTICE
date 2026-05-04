@@ -26,14 +26,14 @@ mother(X,Y):- parent(X,Y),
          female(X).
 
 brother(X,Y):- parent(Z,X),
-          parent(Z,Y),
-          male(X),
-          Y\==Z.
+               parent(Z,Y),
+               male(X),
+               X \== Y.
 
 sister(X,Y):- parent(Z,X),
-          parent(Z,Y),
-          female(X),
-          Y\==Z.
+              parent(Z,Y),
+              female(X),
+              X \== Y.
 
 grandfather(X,Y):- father(X,Z),
               parent(Z,Y).
